@@ -1,14 +1,7 @@
 class Api::V1::Movie::SearchController < ApplicationController
   def index
-    search = params[:movie]
-
-    api_key = Rails.application.credentials.tmdb[:key]
+    searched_movies = MovieGateway.search_movies(params[:movie])
     
-    conn = Faraday.new(url: "https://api.themoviedb.org") 
-
-    response = conn.get("/3/search/movie", { api_key: api_key, query: search })
-    top_movies = JSON.parse(response.body, symbolize_names: true)
-    
-    render json: MovieSerializer.format_movies(top_movies)
+    render json: MovieSerializer.format_movies(searched_movies)
   end
 end
