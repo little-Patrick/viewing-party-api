@@ -1,5 +1,5 @@
 class Api::V1::Movie::SearchController < ApplicationController
-  def show
+  def index
     search = params[:movie]
 
     api_key = Rails.application.credentials.tmdb[:key]

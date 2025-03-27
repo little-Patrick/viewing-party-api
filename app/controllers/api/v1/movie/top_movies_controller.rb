@@ -1,5 +1,5 @@
 class Api::V1::Movie::TopMoviesController < ApplicationController
-  def show
+  def index
     api_key = Rails.application.credentials.tmdb[:key]
     
     conn = Faraday.new(url: "https://api.themoviedb.org") 
