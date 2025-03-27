@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       namespace :movie do
-        # get 'top_movies/index'
+        resources :search, only: :index, action: "show"
         resources :top_movies, only: :index, action: "show"
       end
       resources :users, only: [:create, :index]
