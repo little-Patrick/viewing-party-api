@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Movie Gateway" do
-  it "should return an Image object when given a query" do
+  it "should return an top movie data" do
     movie_response = MovieGateway.get_top_movies
     {
       "adult": false,
