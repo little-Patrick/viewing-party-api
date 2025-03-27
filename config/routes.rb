@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :movie do
         # get 'top_movies/index'
-        resources :top_movies, only: :index
+        resources :top_movies, only: :index, action: "show"
       end
       resources :users, only: [:create, :index]
       resources :sessions, only: :create
