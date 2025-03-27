@@ -1,6 +1,12 @@
 class MovieGateway
   def  self.get_top_movies
-    conn.get("/3/movie/top_rated", { api_key: api_key })
+    response = conn.get("/3/movie/top_rated", { api_key: api_key })
+    JSON.parse(response.body, symbolize_names: true)
+  end
+
+  def self.search_movies(search)
+    response = conn.get("/3/search/movie", { api_key: api_key, query: search })
+    JSON.parse(response.body, symbolize_names: true)
   end
 
   private
