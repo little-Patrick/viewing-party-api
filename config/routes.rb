@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       end
       resources :users, only: [:create, :index]
       resources :sessions, only: :create
+      resources :viewing_parties, only: :create
     end
   end
 end
