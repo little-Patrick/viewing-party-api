@@ -32,11 +32,15 @@ RSpec.describe "Movie Gateway" do
     end
   end
 
-  xit "should only have title with the param included" do
-    search_response = MovieGateway.search_movies("Lord of the rings")
-
-    search_response[:results].each do |movie|
-      expect(movie[:title].downcase.include?("lord")).to eq(true)
-    end
+  it "::movie_details, returns details of movie" do
+    movie = MovieGateway.movie_details(278)
+    expect(movie.id).to_not be_nil
+    expect(movie.title).to_not be_nil
+    expect(movie.release_date).to_not be_nil
+    expect(movie.vote_average).to_not be_nil
+    expect(movie.runtime).to_not be_nil
+    expect(movie.genres).to_not be_nil
+    expect(movie.summary).to_not be_nil
+    expect(movie.release_date).to_not be_nil
   end
 end
