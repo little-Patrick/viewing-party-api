@@ -9,7 +9,32 @@ class MovieGateway
     JSON.parse(response.body, symbolize_names: true)
   end
 
+
+  def self.movie_details(id)
+    response = conn.get("/3/movie/#{id}", { api_key: api_key })
+    json = JSON.parse(response.body, symbolize_names: true)
+    movie = Movie.new(json)
+
+    get_reviews(id, movie)
+    get_cast(id, movie)
+    movie
+  end
+
   private
+
+  def self.get_reviews(id, movie)
+    response = conn.get("/3/movie/#{id}/reviews", { api_key: api_key })
+    json = JSON.parse(response.body, symbolize_names: true)
+
+    movie.add_reviews(json)
+  end
+
+  def self.get_cast(id, movie)
+    response = conn.get("/3/movie/#{id}/credits", { api_key: api_key })
+    json = JSON.parse(response.body, symbolize_names: true)
+
+    movie.add_cast(json)
+  end
 
   def self.conn
     Faraday.new(url: "https://api.themoviedb.org") 
