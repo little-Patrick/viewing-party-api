@@ -1,7 +1,4 @@
 class MovieSerializer
-  include JSONAPI::Serializer
-  attributes :title, :vote_average, :api_key
-
   def self.format_movies(movies)
     { data:
       movies[:results].map do |movie|
