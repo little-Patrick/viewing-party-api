@@ -19,9 +19,8 @@ RSpec.describe Invitation, type: :model do
     @invite3 = Invitation.create!(viewing_party: @party2, user: @user1)
     @invite4 = Invitation.create!(viewing_party: @party3, user: @user4)
     @invite5 = Invitation.create!(viewing_party: @party4, user: @user5)
-
-    
   end 
+
   describe "relationships" do
     it { should belong_to :viewing_party }
     it { should belong_to :user }

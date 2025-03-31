@@ -11,5 +11,4 @@ class ApplicationController < ActionController::API
     render json: ErrorSerializer.format_invalid_search_response,
         status: :bad_request
   end
-
 end
