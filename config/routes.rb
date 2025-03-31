@@ -10,12 +10,14 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       namespace :movie do
+        get "/details/id", to: "details#show"
         resources :search, only: :index
         resources :top_movies, only: :index
       end
       resources :users, only: [:create, :index]
       resources :sessions, only: :create
       resources :viewing_parties, only: :create
+      patch "/viewing_parties/:id", to: "viewing_parties#update"
     end
   end
 end
