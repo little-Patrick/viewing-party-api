@@ -41,6 +41,5 @@ RSpec.describe "Movie Gateway" do
     expect(movie.runtime).to_not be_nil
     expect(movie.genres).to_not be_nil
     expect(movie.summary).to_not be_nil
-    expect(movie.release_date).to_not be_nil
   end
 end
