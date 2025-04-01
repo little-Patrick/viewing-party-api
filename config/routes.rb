@@ -14,7 +14,7 @@ Rails.application.routes.draw do
         resources :search, only: :index
         resources :top_movies, only: :index
       end
-      resources :users, only: [:create, :index]
+      resources :users, only: [:create, :index, :show]
       resources :sessions, only: :create
       resources :viewing_parties, only: :create
       patch "/viewing_parties/:id", to: "viewing_parties#update"

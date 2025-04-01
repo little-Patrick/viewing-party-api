@@ -8,4 +8,12 @@ class User < ApplicationRecord
   
   has_secure_password
   has_secure_token :api_key
+
+  def viewing_parties_hosted
+    ViewingParty.where(host_id: id)
+  end
+
+  def viewing_parties_invited
+    viewing_parties.where.not(host_id: id)
+  end
 end

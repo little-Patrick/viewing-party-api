@@ -33,7 +33,11 @@ RSpec.describe "Movie" do
       title: "The Shawshank Redemption",
       video: false,
       vote_average: 8.708,
-      vote_count: 28014
+      vote_count: 28014,
+      cast: [
+      { character: "Andy Dufresne", name: "Tim Robbins" },
+      { character: "Ellis Boyd 'Red' Redding", name: "Morgan Freeman" }
+    ]
     }
 
     @movie = Movie.new(@data)
@@ -66,7 +70,7 @@ RSpec.describe "Movie" do
     it "#add_cast, it can add cast to object" do
       @movie.add_cast(@data)
 
-      expect(@movie.cast).to eq(nil)
+      expect(@movie.cast).to eq([{:character=>"Andy Dufresne", :name=>"Tim Robbins"}, {:character=>"Ellis Boyd 'Red' Redding", :name=>"Morgan Freeman"}])
     end
   end
 end
