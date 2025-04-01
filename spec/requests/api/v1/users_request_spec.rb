@@ -87,4 +87,33 @@ RSpec.describe "Users API", type: :request do
       expect(json[:data][0][:attributes]).to_not have_key(:api_key)
     end
   end
+
+  describe "Get host and party" do
+     it "returns a user's profile with hosted and invited viewing parties" do
+      user = User.create!(name: "Leo", username: "leo123", password: "password", password_confirmation: "password")
+      user2 = User.create!(name: "Tony Rice",username: "cold_onthe_shoulder", password: "password", password_confirmation: "password")
+
+      hosted_party = ViewingParty.create!(name: "Titanic Watch Party", start_time: "2025-05-01 10:00:00", end_time: "2025-05-01 14:30:00", movie_id: 597, movie_title: "Titanic", host_id: user.id)
+      invited_party = ViewingParty.create!(name: "LOTR Viewing Party", start_time: "2025-03-11 10:00:00", end_time: "2025-03-11 15:30:00", movie_id: 120, movie_title: "The Lord of the Rings: The Fellowship of the Ring", host_id: user2.id)
+
+      Invitation.create!(user: user, viewing_party: invited_party)
+
+      get "/api/v1/users/#{user.id}"
+
+      expect(response).to be_successful
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(json[:data][:attributes][:name]).to eq("Leo")
+      expect(json[:data][:attributes][:viewing_parties_hosted].size).to eq(1)
+      expect(json[:data][:attributes][:viewing_parties_invited].size).to eq(1)
+    end
+
+    it "returns a 404 error for an invalid user ID" do
+      get "/api/v1/users/99999"
+
+      expect(response.status).to eq(404)
+      json = JSON.parse(response.body, symbolize_names: true)
+      expect(json[:message]).to eq("Invalid User ID")
+    end
+  end
 end
